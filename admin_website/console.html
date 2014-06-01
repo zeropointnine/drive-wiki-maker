@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>Console</title>
+        <link href="styles/app.css" rel="stylesheet" type="text/css" />
+	</head>
+    
+    <body>
+
+        <div class="meta">
+
+            <div class="page-wrapper">
+
+                <div class="appnav">
+
+                    <div class="appnav-logout">
+                        <a id="logout" href="#">logout</a>
+                    </div>
+
+                    <div id="spinner"></div>
+
+                    <div class="appnav-title">
+                        Wiki Maker - Admin Console
+                    </div>
+                </div>
+
+                <div class='content-area'>
+
+                    <div id="login" style="display:none;">
+
+                        <div id='form-group-login' class='group-holder'>
+
+                            <div class='bordered-container'>
+
+                                <div class="input-group ui-block">
+                                    <span class="input-group-addon">un</span>
+                                    <input id="login-name" type="text" class="form-control">
+                                </div>
+                                <div class="input-group ui-block">
+                                    <span class="input-group-addon">pw</span>
+                                    <input id="login-password" type="password" class="form-control">
+                                </div>
+                                <div class="ui-block-last">
+                                    <div style="float:right;">
+                                        <button id='login-button' type="submit" class="btn btn-primary">Login</button>
+                                    </div>
+                                    <div id="login-feedback" style="padding-left:5px;padding-top:8px;color:#f00;"></div>
+                                    <div style="clear:both"></div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div id='form' style="display:none;">
+
+                        <div id='form-group-gapi' class='group-holder'>
+
+                            <div class='bordered-container'>
+
+                                <h4 class='form-heading'>Google API setup</h4>
+
+                                <div class="ui-block" style="margin-bottom:25px;">
+                                    <div class="redirect-prompt">Your <a href="https://code.google.com/apis/console" target="_blank">Google API account</a> must have a "Web Application" type,<br>using the following redirect url:</div>
+                                    <div class="input-group">
+                                        <span class="input-group-addon">redirect url</span>
+                                        <input id="redirect-url" type="text" disabled="true" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="input-group ui-block">
+                                    <span class="input-group-addon">client id</span>
+                                    <input type="text" id="client-id" class="form-control">
+                                </div>
+                                <div class="input-group ui-block">
+                                    <span class="input-group-addon">client secret</span>
+                                    <input type="text" id="client-secret" class="form-control">
+                                </div>
+
+                                <div class='ui-block' style="margin-top:25px;">
+                                    <button id='authorize-button' class="btn btn-primary">
+                                        <span class='glyphicon glyphicon-link'></span> Link to Google Drive
+                                    </button>
+                                    <button id='deauthorize-button' type="button" class="btn btn-default" style="margin-left:10px; color:#888;">
+                                        <span class='glyphicon glyphicon-remove-sign'></span> Deauthorize
+                                    </button>
+                                </div>
+
+
+                                <div id='auth-status' class='ui-block-last' style='clear:left;'></div>
+
+                            </div>
+
+                        </div>
+
+                        <div id='form-group-wiki' class='group-holder' style="display:none;">
+
+                            <div class='bordered-container'>
+
+                                <h4 class='form-heading'>Wiki content</h4>
+
+                                <div class="ui-block">
+                                    Select the root folder (required)<br/>
+                                    <span class='paren-text'>All files and subdirectories starting from this folder will be exported</span>
+
+                                    <div style='margin-top:5px;'>
+                                        <select id='folder-list' class="form-control"></select>
+                                    </div>
+                                </div>
+
+                                <div class="ui-block">
+
+                                    Select a home document to be loaded by default (optional)</span>
+
+                                    <div style='margin-top:5px; margin-bottom:10px;'>
+                                        <select id='default-document-list' class="form-control"></select>
+                                    </div>
+                                </div>
+
+                                <div class='divider'></div>
+
+                                <div class="ui-block-last">
+
+                                    Give your wiki a title (optional)
+
+                                    <div style='margin-top:5px; margin-bottom:10px;'>
+                                        <table>
+                                            <tr>
+                                                <td style='width:100%'>
+                                                  <input id="wiki-title" type="text" class="form-control" placeholder="">
+                                                </td>
+                                                <td style='padding-left:10px;'>
+                                                    <button id='wiki-title-submit' type="submit" class="btn btn-primary">
+                                                        Update
+                                                    </button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- export -->
+
+                        <div id='form-group-generate' class='group-holder' style="display:none;">
+
+                            <div class='bordered-container'>
+
+                                <h4 class='form-heading'>
+                                    <div style='float:right;padding-top:10px;font-size:14px;'>
+                                        <a id="wiki-link" href="#" target="_blank"><span class='glyphicon glyphicon-new-window'></span> Wiki</a>
+                                    </div>
+                                    Export Schedule
+                                </h4>
+
+                                <div class="ui-block">
+                                    <select id='refresh-interval-list' class="form-control">
+                                        <option value="-1">Disabled</option>
+                                        <option value="0">Every 24 hours</option>
+                                        <option value="1">Every 8 hours</option>
+                                        <option value="2">Every 4 hours</option>
+                                        <option value="3">Every 2 hours</option>
+                                        <option value="4">Every hour</option>
+                                        <option value="5">Every 30 minutes</option>
+                                    </select>
+                                </div>
+
+                                <div id='status-next' class="ui-block"></div>
+
+                                <div class='divider'></div>
+
+                                <div class="ui-block">
+                                    <div style="float:right;">
+                                        <button id='export-now-button' type="button" class="btn btn-default btn-primary">
+                                            <span class='glyphicon glyphicon-cloud-upload'></span> Export now
+                                        </button>
+                                    </div>
+                                    <div id='status-area' class='ui-block-last' style="margin-top:20px;">
+                                        <div id='status-last'></div>
+                                        <div style="clear:both"></div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                    <div id="test-buttons" style='display:none; clear:both;'></div>
+                    <button id='test1'>test1</button>
+                    <button id='test2'>test2</button>
+                    <button id='test3'>test3</button>
+
+                </div>
+
+            </div> <!-- .page-wrapper -->
+
+            <div class="busy-overlay"></div>
+
+
+            <!-- bootstrap modal -->
+
+            <div id="generating-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button id="modal-header-close" type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Exporting</h4>
+                        </div>
+                        <div class="modal-body">
+
+                            <div id='generate-modal-status'>#</div>
+
+                            <br/>
+                            <div id="progress" class="progress">
+                                <div id="progress-bar" class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                                    <div id="progress-label"></div>
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+                            <button id="modal-footer-close" type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            <!-- <button type="button" class="btn btn-primary">Save changes</button>  -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div> <!-- .meta -->
+
+
+        <script src="js/libs/require-v2.1.11.js" data-main="js/boot.js"></script>
+
+    </body>
+</html>

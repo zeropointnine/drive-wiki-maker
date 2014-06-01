@@ -1,0 +1,135 @@
+// customize bootstrap variables here:
+
+@import 'compass';
+@import "variables";
+@import "bootstrap";
+
+
+.meta {
+	position:relative;
+	width:100%;
+}
+
+.page-wrapper {
+	position:absolute;
+	z-index:100;
+	width:100%;
+}
+
+.busy-overlay {
+	position:fixed;
+	top:0px;
+	left:0px;
+	z-index:101;
+	background: black;
+	opacity:0.0;
+	display:none;
+}
+
+// ---
+
+.appnav {
+	background:#e5e5e5;
+	padding:12px 15px 12px 15px;
+
+	.appnav-title {
+		color:#666;
+		font-size:24px;
+	}
+
+	.appnav-logout {
+		float:right;
+		margin-top:5px;
+		margin-right:5px;
+		padding-top:0px;
+		color:#888;
+		font-size:15px;
+	}
+}
+
+#spinner {
+	float:right;
+	margin-top:5px;
+	margin-right:24px;
+
+	width: 24px;
+ 	height: 24px;
+	-webkit-animation: sweep 1.0s infinite linear;
+	border-radius:12px;
+	border-bottom:3px solid #888;
+
+	display:none;
+}
+@-webkit-keyframes sweep { to { -webkit-transform: rotate(360deg); } }
+
+// ---
+
+.content-area {
+	padding:30px 15px 15px 15px;
+}
+
+.group-holder {
+	float:left; 
+	margin-right:20px;
+	margin-bottom:20px;
+}
+
+.bordered-container {
+	min-width:500px;
+	max-width:500px;
+	padding:15px 20px 15px 20px;
+	border: 1px solid #bbb;
+	min-height:100px;
+}
+
+h4.form-heading {
+	font-size:30px;
+	margin-top:0px;
+	margin-bottom:20px;
+}
+
+// ---
+
+.ui-block {
+  margin-bottom:15px;
+}
+.ui-block-last {
+  margin-bottom:0px;
+}
+
+.divider {
+  border-top: 1px solid #ddd;
+  height:1px;
+  margin-top:25px;
+  margin-bottom:20px;
+}
+
+// ---
+
+.auth-status-is {
+	color:green;
+}
+.auth-status-isnt {
+}
+
+.redirect-prompt {
+	margin-bottom:8px;
+}
+
+.paren-text {
+	font-size:13px;
+	color:#888;
+}
+
+.redirect-url {
+	font-size:13px;
+}
+
+
+// used for a row with right-justified element element, and a left-hand element which expands to fill
+div.metaline-right {
+	float:right;
+	padding-left: 10px;
+}
+div.metaline-left {	
+}

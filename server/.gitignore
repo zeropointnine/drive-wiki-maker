@@ -1,0 +1,24 @@
+# os cruft
+
+.DS_Store
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
+# node
+
+**/node_modules/**/*
+
+
+# intellij
+
+workspace.xml
+tasks.xml
+
+
+# project-specific
+
+config.json
+prefs.json

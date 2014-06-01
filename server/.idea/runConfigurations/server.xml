@@ -1,0 +1,13 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="server" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="/usr/local/bin/node" path-to-js-file="src/index.js" working-dir="$PROJECT_DIR$">
+    <envs>
+      <env name="DEBUG" value="my-application" />
+    </envs>
+    <browser url="http://localhost:3000/" />
+    <RunnerSettings RunnerId="NodeJS.debug" />
+    <RunnerSettings RunnerId="NodeJS.run" />
+    <ConfigurationWrapper RunnerId="NodeJS.debug" />
+    <ConfigurationWrapper RunnerId="NodeJS.run" />
+    <method />
+  </configuration>
+</component>

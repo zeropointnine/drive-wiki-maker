@@ -1,0 +1,251 @@
+/* Welcome to Compass.
+ * In this file you should write your main styles. (or centralize your imports)
+ * Import this file using the following HTML or equivalent:
+ * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+
+@import "compass/reset";
+
+
+$siteMonospace: 'Consolas', monospace;
+$navAreaWidth: 250px;
+$navFileItemHeight: 25px;
+$navFolderItemHeight: 25px;
+
+
+@font-face {
+	font-family: 'Consolas';
+	font-weight: normal;
+	src: url('../fonts/consola-webfont.eot'); /* IE 5-8 */ 
+	src: local('☺'), /* trick IE */
+		url('../fonts/consola-webfont.woff') format('woff'), /* FF 3.6, Chrome 5, IE9 */
+		url('../fonts/consola-webfont.ttf') format('truetype'), /* Opera, Safari */
+		url('../fonts/consola-webfont.svg#font') format('svg'); /* iOS */
+}
+
+@font-face {
+	font-family: 'Consolas';
+	font-weight: bold;
+	src: url('../fonts/consolab-webfont.eot');
+	src: local('☺'),
+		url('../fonts/consolab-webfont.woff') format('woff'),
+		url('../fonts/consolab-webfont.ttf') format('truetype'),
+		url('../fonts/consolab-webfont.svg#font') format('svg');
+}
+
+body {
+	width: 100%;
+	background: #fff;
+	font-family: $siteMonospace
+}
+
+.metaHolder {
+}
+
+
+// CONTENT
+
+.contentArea {
+	position:relative;
+	margin-left:$navAreaWidth;
+	overflow:hidden;
+}
+
+.headerSpacer {
+	// debug:
+	// background:red;
+}
+
+.header {
+	position:absolute;
+	width:100%;
+	background:#e5e5e5;
+
+	.headerCrumb {
+		margin-left:20px;
+		margin-top:10px;
+		margin-bottom:4px;
+		font-size:10px;
+		color:#9a9a9a;
+		font-weight:normal;
+	}
+
+	.headerTitle {
+		margin-left:20px;
+		margin-bottom:10px;
+		font-size:18px;
+		color:#9a9a9a;
+		font-weight:bold;
+	}
+
+	.headerRight {
+		float:right;
+		margin-top:9px;
+		margin-right:7px;
+
+			.headerDate {
+				float:left;
+				margin-top:8px;
+				margin-right:9px;
+				margin-left:5px;
+				text-align:right;
+				color:#9a9a9a;
+				font-size:9px;
+				line-height: 9px;
+			}
+
+			.preview {
+				display:none;
+				float:right;
+				padding-left:7px;
+				padding-top:7px;
+				padding-bottom:5px;
+				border-left: 1px solid #9a9a9a;
+			}
+	}
+}
+
+.content {
+	font-size: 12px;
+}
+
+.content .contentIframe {
+	width: 100%;
+	height: 100%;
+}
+
+.notfound {
+	text-align:center;
+	padding:50px;
+	display:none;
+}
+
+
+// NAV
+
+.navButtonsHolder { 
+	position: absolute;
+	display:none;
+	z-index:100;
+}
+
+.navArea {
+	float: left;
+	position: relative;
+	width: $navAreaWidth;
+	height:0px;  // set by js
+	overflow: auto;
+	color: white;
+	background: #666;
+
+	// height set by js
+}
+
+.navTopButton {
+	display:block;
+	position:absolute;
+	top: 5px;
+	cursor: pointer;
+	// left set in js
+}
+.navPreview {
+	display: none;
+	position:absolute;
+	top: 100px;
+	cursor: pointer;
+	font-size:10px;
+
+	img {
+		opacity:0.66;
+	}
+}
+
+// the actual tree-structure ui
+.nav {
+	margin-left: -15px; margin-top: 7px;
+	padding: 15px 15px 15px 0px;
+}
+
+.nav ul {
+	margin-left: 20px;
+}
+
+.nav li {
+	display: block;	
+}
+
+.nav a {
+	text-decoration: none;
+}
+
+.nav a:link {
+	color:#d5d5d5;
+}
+.nav a:visited {
+	color:#d5d5d5;
+}
+.nav a:hover {
+	color:#d5d5d5;
+	text-decoration: underline;
+}
+.nav a:active {
+	color:#d5d5d5;
+}
+
+.nav a.selectedItem { 
+	color:orange; 
+	text-decoration: none;
+	cursor: default;
+}
+
+.nav li div img {
+	display: inline-block;
+}
+
+.nav li div.navItemInner1 {
+	float:left;
+	margin-right:6px;
+}
+
+.nav li div.navItemInner2 {
+	overflow:hidden;
+}
+
+// nav li folder
+
+.nav li.navItemFolder {
+	height: $navFolderItemHeight;
+	margin-left:0px;
+	font-family: $siteMonospace;
+	font-size:13px;
+}
+
+.nav li.navItemFolder div.navItemInner1 img {
+	padding-top: $navFolderItemHeight * 0.15;
+	height: $navFolderItemHeight * 0.70;
+}
+
+.nav li.navItemFolder div.navItemInner2 {
+	// vertically center text
+	height:$navFolderItemHeight;
+	line-height:$navFolderItemHeight;
+}
+
+// nav li file
+
+.nav li.navItemFile {
+	height: $navFileItemHeight;
+	margin-left:0px;
+	font-family: $siteMonospace;
+	font-size:11px;
+}
+
+.nav li.navItemFile div.navItemInner1 img {
+	padding-top: $navFileItemHeight * 0.15;
+	height: $navFileItemHeight * 0.70;
+}
+
+.nav li.navItemFile div.navItemInner2 {
+	// vertically centered text
+	height:$navFileItemHeight;
+	line-height:$navFileItemHeight;
+}

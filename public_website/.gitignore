@@ -1,0 +1,22 @@
+# os cruft
+
+.DS_Store
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+
+# intellij
+
+workspace.xml
+tasks.xml
+
+# front-end web related
+
+**/.sass-cache/**/*
+
+
+# project-specific
+
+exported_documents/
