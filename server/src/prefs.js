@@ -76,7 +76,7 @@ exports.init = function () {
 var save = exports.save = function() {
 
 	var s = JSON.stringify(_topObj, null, 4);
-	//l.d('Prefs.save()\r\n' + s);
+	//l.v('Prefs.save()\r\n' + s);
 
 	fs.writeFile(config.prefsPath(), s, 'utf8', function(error) {
 		if (error) {

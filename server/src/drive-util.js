@@ -22,8 +22,8 @@ exports.getDriveDataAndMakeTree = function(callback) {
 
 		if (error) return callback(error);
 
-		l.d("got 'about' data");
-		// l.d("\r\n\r\n" + JSON.stringify(response) + "\r\n\r\n");
+		l.v("got 'about' data");
+		// l.v("\r\n\r\n" + JSON.stringify(response) + "\r\n\r\n");
 		o_about = response;
 
 		// [2] get files-list data
@@ -35,8 +35,8 @@ exports.getDriveDataAndMakeTree = function(callback) {
 
 		if (error) return callback(error);
 
-		l.d('got files list data');
-		// l.d("\r\n\r\n" + JSON.stringify(response,null,4) + "\r\n\r\n");
+		l.v('got files list data');
+		// l.v("\r\n\r\n" + JSON.stringify(response,null,4) + "\r\n\r\n");
 		o_drive = response;
 
 		// commit
@@ -49,7 +49,7 @@ exports.getDriveDataAndMakeTree = function(callback) {
 		{
 			var item = drive.findItemById(prefs.driveBaseFolderId());
 			if (item) {
-				l.d('making tree as well');
+				l.v('making tree as well');
 				var tree = Tree.makeFromDriveData(item, prefs.mimeTypesToExport(), drive.data());
 				shared.setTree(tree);
 			}

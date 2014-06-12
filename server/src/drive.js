@@ -76,7 +76,7 @@ var sortItems = function() {
     var a = folders.concat(files);
     data.items = a;
 
-    // l.d("\r\n" + JSON.stringify(drive.data(), null, 4));
+    // l.v("\r\n" + JSON.stringify(drive.data(), null, 4));
 };
 
 var makeSimpleFolderList = function()
@@ -96,5 +96,5 @@ var makeSimpleFolderList = function()
 	for (var i = 0; i < a.length; i++) {
 		simpleFolderList.push( { title: a[i].title, id:a[i].id } );
 	}
-	// l.d('simpleFolderList:\r\n', JSON.stringify(simpleFolderList,null,4));
+	// l.v('simpleFolderList:\r\n', JSON.stringify(simpleFolderList,null,4));
 };

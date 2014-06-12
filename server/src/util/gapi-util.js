@@ -76,11 +76,11 @@ exports.authorizeWithCallbackCode = function(code, callback) {
 	var onResponse = function (err, tokens) {
 
 		if (err) return callback(err);
-		// l.d('got tokens \r\n' + JSON.stringify(tokens, null, 4));
+		// l.v('got tokens \r\n' + JSON.stringify(tokens, null, 4));
 
 		var refreshToken = tokens.refresh_token;
 		if (! refreshToken) return callback('No refresh token');
-		l.d("got refresh token");
+		l.v("got refresh token");
 
 		exports.setRefreshToken(refreshToken);
 
@@ -107,12 +107,12 @@ exports.revokeToken = function(token, callback) {
 //
 //		if (response.statusCode == 200) return callback();  // success
 //
-//		l.d('revokeToken response status code != 200: ', response.toString());
+//		l.v('revokeToken response status code != 200: ', response.toString());
 //		callback(new Error('Bad status code: ' + response.statusCode));
 //	});
 //
 //	req.on('error', function(err) {
-//		l.d('revokeToken response error handler: ', err);
+//		l.v('revokeToken response error handler: ', err);
 //		callback(true);
 //	});
 

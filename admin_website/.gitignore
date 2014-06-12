@@ -9,6 +9,7 @@ Thumbs.db
 
 # intellij
 
+**/.idea/**/*
 workspace.xml
 tasks.xml
 

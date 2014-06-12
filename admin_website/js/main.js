@@ -18,8 +18,6 @@ define(['app-util', 'lee-util', 'eventbus', 'components/export-modal', 'jquery']
 
 		this.start = function () {
 
-			console.log('start');
-
 			init();
 
 			// is user not logged in?
@@ -29,13 +27,16 @@ define(['app-util', 'lee-util', 'eventbus', 'components/export-modal', 'jquery']
 
 			showForm();
 
+
 			// has browser returned here from google account consent page?
+
 			var code = LeeUtil.getUrlParam('code');
 			var error = LeeUtil.getUrlParam('error');
+			// console.log('code:', code, 'error:', error);
+
 			if (code) return handleRedirectCode(code);
 			if (error) return handleRedirectError(error);
 
-			console.log('code?', code, 'error?', error);
 
 			requestStateOnStartup();
 		};
@@ -51,7 +52,8 @@ define(['app-util', 'lee-util', 'eventbus', 'components/export-modal', 'jquery']
 			$('#deauthorize-button').click(onDeauthButton);
 			$('#folder-list').on('change', onRootFolderChange);
 			$('#default-document-list').on('change', onDefaultDocumentChange);
-			$('#wiki-title-submit').click(onWikiTitleSubmitButton);
+			$('#wiki-title').on('input', onWikiTitleInput);
+			$('#wiki-title-button').click(onWikiTitleSubmitButton);
 			$('#refresh-interval-list').on('change', onRefreshIntervalChange);
 			$('#wiki-button').click(onWikiButton);
 			$('#export-now-button').click(requestExport);
@@ -139,6 +141,11 @@ define(['app-util', 'lee-util', 'eventbus', 'components/export-modal', 'jquery']
 			var id = $('#default-document-list').val();
 			if (!id) return;
 			postDefaultDocumentId(id);
+		};
+
+		var onWikiTitleInput = function () {
+			var title = $('#wiki-title').val();
+			$('#wiki-title-button').attr('disabled', false);
 		};
 
 		var onWikiTitleSubmitButton = function () {
@@ -384,8 +391,8 @@ define(['app-util', 'lee-util', 'eventbus', 'components/export-modal', 'jquery']
 
 		var populateForm = function (data) {
 
-			populatePrefsBased(data.prefs);
-			populateStatusBased(data.status);
+			populatePrefsRelated(data.prefs);
+			populateStatusRelated(data.status);
 
 			if (data.simpleFolderList)
 				populateFolderList(data.simpleFolderList, data.prefs.driveBaseFolderId);
@@ -398,7 +405,7 @@ define(['app-util', 'lee-util', 'eventbus', 'components/export-modal', 'jquery']
 				emptyDefaultDocumentList();
 		};
 
-		var populatePrefsBased = function (prefs) {
+		var populatePrefsRelated = function (prefs) {
 
 			// form panels visibility
 			var visIs = ( $('#form-group-wiki').css('display') == 'block' );
@@ -423,10 +430,11 @@ define(['app-util', 'lee-util', 'eventbus', 'components/export-modal', 'jquery']
 			$('#client-secret').attr('value', prefs.googleApiClientSecret);
 			$('#redirect-url').attr('value', prefs.googleApiRedirectUrl);
 			$('#wiki-title').attr('value', prefs.wikiTitle);
+			$('#wiki-title-button').attr('disabled', true);
 			$('#refresh-interval-list').val(prefs.refreshIntervalCode);
 		};
 
-		var populateStatusBased = function (status) {
+		var populateStatusRelated = function (status) {
 
 			// next export in
 			var s;

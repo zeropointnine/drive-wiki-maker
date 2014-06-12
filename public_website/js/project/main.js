@@ -1,6 +1,6 @@
 define(['project/model', 'project/nav', 'project/header', 'project/content',
 		'project/lee-util', 'project/shared', 'project/eventbus', 'jquery'],
-		function(Model, NavView, Header, ContentView, Util, Shared, EventBus, $) {
+		function(Model, NavView, Header, ContentView, LeeUtil, Shared, EventBus, $) {
 
 
 	var f = function() {
@@ -16,8 +16,12 @@ define(['project/model', 'project/nav', 'project/header', 'project/content',
 
 		this.init = function () {
 
-			if (window.location.href.indexOf('localhost') == -1) {
-				// disable console output when not in dev
+			var isDev = (window.location.href.indexOf('localhost') == -1);
+			if  (isDev) {
+				LeeUtil.assertEnabled = true;
+			}
+			else {
+				LeeUtil.assertEnabled = false;
 				console.log = function() {};
 			}
 
@@ -58,7 +62,7 @@ define(['project/model', 'project/nav', 'project/header', 'project/content',
 			header.setScrapedTimeUtc(model.utcTime());
 
 			// launch document:
-			var id = Util.getUrlParam('id');
+			var id = LeeUtil.getUrlParam('id');
 			if (id) {
 				doDocument(id, true);
 			}

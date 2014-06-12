@@ -26,7 +26,7 @@ define([], function () {
 	f.assert = function(condition, message) {
 	    if (! this.assertEnabled) return;
 	    if (! condition) {
-	        throw message || "Assertion failed";
+			throw new Error(message || "Assertion failed");
 	    }
 	}
 

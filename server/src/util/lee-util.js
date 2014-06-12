@@ -31,7 +31,7 @@ exports.getPathElementsFromUrlString = function (u) {
 
 exports.printObject = function (o) {
 
-	for (var key in o) l.d(">>>", key + " = " + o[key]);  
+	for (var key in o) l.v(">>>", key + " = " + o[key]);
 }
 
 
@@ -66,7 +66,7 @@ exports.sortBy = function(field, reverse, primer) {
  */
 exports.downloadToFile = function(u, dest, callback) {
 
-	// l.d('download', 'start', dest);
+	// l.v('download', 'start', dest);
 
 	var file = fs.createWriteStream(dest);
 
@@ -94,9 +94,9 @@ exports.downloadToFile = function(u, dest, callback) {
 
 		// note use of callback here because close() is actually async
 		file.on('finish', function () {
-			// l.d('download', 'closing file');
+			// l.v('download', 'closing file');
 			file.close(function () {
-				// l.d('download', 'closed file');
+				// l.v('download', 'closed file');
 				callback();
 			});
 		});

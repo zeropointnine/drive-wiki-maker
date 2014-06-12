@@ -15,8 +15,8 @@ var DRIVE_SCOPE_URL = 'https://www.googleapis.com/auth/drive';
 
 
 // -----------------------------------------------------------------------
-// To change these values, edit the config.json file directly
-// The node app generates this file the first time it is run.
+// To change these values, edit the config.json file directly,
+// which gets generated the first time the app is run
 // -----------------------------------------------------------------------
 var prodHostName;
 var password;
@@ -26,7 +26,7 @@ var webserviceSslKeyPath;
 var webserviceSslCertPath;
 var webserviceSslCaPath;
 var webserviceWebsiteDir;
-var webserviceWhitelistedHost; 		//
+var webserviceWhitelistedHost;
 var shouldServePublicWebsite;
 var publicWebsitePort;
 var publicWebsiteDir;

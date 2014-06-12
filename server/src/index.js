@@ -14,6 +14,7 @@ var l = require('./logger');
 var config = require('./config');
 var prefs = require('./prefs');
 var service = require('./service');
+var exporter = require('./exporter');
 
 var serviceServer; 		// webservice; type can be either http or https; also serves the static admin console webpage
 var serviceApp;
@@ -57,7 +58,7 @@ var init3 = function() {
 		if (prefs.refreshToken()) driveUtil.setRefreshToken(prefs.refreshToken());
 	}
 
-	// Init webservice server
+	// init webservice server
 
 	serviceApp = express();
 
@@ -81,7 +82,7 @@ var init3 = function() {
 		l.i("webservice http server started on port", config.webservicePort());
 	}
 
-	if (config.webserviceWhitelistedHost())
+	if (config.webserviceWhitelistedHost() && config.webserviceWhitelistedHost() != '*')
 	{
 		// filter out requests whose host does not match webserviceWhitelistedHost
 
@@ -115,9 +116,11 @@ var init3 = function() {
 
 		wikiApp.use(express.static(config.publicWebsiteDir()));
 	}
+
+	// Startup finished. Run export.
+	exporter.exportWiki();
 };
 
-// ?
 var onUnhandledError = function(error) {
 	
 	l.e('UNHANDLED ERROR, WILL EXIT');

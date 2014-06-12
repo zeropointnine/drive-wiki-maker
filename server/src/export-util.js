@@ -37,7 +37,7 @@ exports.exportFiles = function (pFileObjects, callback) {
 
 	var limit = DEBUG_THROTTLE ? 1 : 5;
 	async.eachLimit(items, limit, downloadToFile, function (err) {
-		l.d('export complete')
+		l.v('export complete')
 		callback();
 	});
 };
@@ -98,14 +98,14 @@ var makeItems = function(pFileObjects) {
 		}
 	}
 
-	// l.d('items:\r\n\r\n', JSON.stringify(items, null, 4) + '\r\n\r\n');
+	// l.v('items:\r\n\r\n', JSON.stringify(items, null, 4) + '\r\n\r\n');
 	return items;
 }
 
 
 var downloadToFile = function (o, callback) {
 
-	// l.d('download wrapper start');
+	// l.v('download wrapper start');
 
 	// leeutil.downloadToFile(o.url, o.dest, function (error) {
 	gapiUtil.downloadToFile(o.url, o.dest, function (error) {
@@ -118,7 +118,7 @@ var downloadToFile = function (o, callback) {
 			status.exportingFilesSaved++;
 		}
 
-		// l.d('download wrapper end');
+		// l.v('download wrapper end');
 
 		DEBUG_THROTTLE ? setTimeout(callback, 2000) : callback();
 	});

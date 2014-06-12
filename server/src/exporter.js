@@ -24,6 +24,8 @@ var oldTree;
  */
 exports.exportWiki = function () {
 
+	l.v('exportWiki()');
+
 	status.resetExportStatus();
 	status.isExporting = true;
 	status.exportingMessage = 'Getting Google Drive data...';
@@ -145,7 +147,7 @@ var getUnchangedFileItemIds = function (old, current) {
 		ids.push(id);
 	}
 
-	l.d('getUnchangedFileItemIds() -', ids.length, 'out of', current.fileList().length);
+	l.v('getUnchangedFileItemIds() -', ids.length, 'out of', current.fileList().length);
 	return ids;
 }
 
@@ -162,7 +164,7 @@ var getChangedFileItems = function (old, current) {
 		}
 	});
 
-	l.d('getChangedItems() -', changedItems.length, 'out of', current.fileList().length);
+	l.v('getChangedItems() -', changedItems.length, 'out of', current.fileList().length);
 	return changedItems;
 }
 
@@ -217,7 +219,9 @@ var deleteOrphanFiles = function (oldFileList, currentFileList) {
 			}
 		});
 
-		l.i('deleteOrphanFiles() - deleting', rmCount, 'files');
+		if (rmCount) {
+			l.i('deleteOrphanFiles() - deleting', rmCount, 'files');
+		}
 	};
 
 	fs.readdir(config.publicWebsiteOutputDir(), onReadDir);

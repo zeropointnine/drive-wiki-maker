@@ -1,6 +1,7 @@
 /**
  * This module is used to send and listen to events via jQuery.
- * It has no purpose other than to be a 'shared object' to send and receive custom events from.
+ * It has no purpose other than to be a shared object thru which
+ * different components can send and receive events.
  * 
  * Usage, where module is named 'EventBus':
  *
@@ -10,6 +11,5 @@
 
 define([], function() {
 	var f = function() {}
-	if (! f.id ) f.id = Math.random();
 	return f;
 });

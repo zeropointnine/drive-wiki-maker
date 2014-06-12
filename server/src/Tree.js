@@ -51,11 +51,11 @@ var Tree = function () {
 
 		makeSimpleFileList();
 
-		l.d('populateUsingDriveData() -', fileList.length, 'file items');
+		l.v('populateUsingDriveData() -', fileList.length, 'file items');
 
-		// l.d("items:\r\n\r\n" + JSON.stringify(items, null, 4) + "\r\n\r\n");
-		// l.d("fileList:\r\n\r\n" + JSON.stringify(fileList, null, 4) + "\r\n\r\n");
-		// l.d("simpleFileList:\r\n\r\n" + JSON.stringify(simpleFileList, null, 4) + "\r\n\r\n");
+		// l.v("items:\r\n\r\n" + JSON.stringify(items, null, 4) + "\r\n\r\n");
+		// l.v("fileList:\r\n\r\n" + JSON.stringify(fileList, null, 4) + "\r\n\r\n");
+		// l.v("simpleFileList:\r\n\r\n" + JSON.stringify(simpleFileList, null, 4) + "\r\n\r\n");
 	};
 
 	/**
@@ -128,7 +128,7 @@ var Tree = function () {
 		// save
 		try {
 			fs.writeFileSync(path, s );
-			l.d("Tree.saveToFile() - ok");
+			l.v("Tree.saveToFile() - ok");
 		}
 		catch (error) {
 			return error;
@@ -244,7 +244,7 @@ var Tree = function () {
 
 	var removeEmptyFoldersFrom = function (a)
 	{
-		//	TODO: needs logic for empty folders with empty folders
+		//	TODO: needs logic for empty-folders-with-empty-folders
 
 		var isArrayAnEmptyFolder = function (a) {
 			// Rem, we're representing a 'folder' as an array with its first element being a generic object.
@@ -306,7 +306,7 @@ Tree.makeFromLoadedJson = function (path) {
 		return l.e("Tree.makeFromLoadedJson - couldn't populate tree");
 	}
 
-	l.d("Tree.makeFromLoadedJson - ok");
+	l.v("Tree.makeFromLoadedJson - ok");
 	return tree;
 };
 

@@ -22,7 +22,7 @@ exports.sendResponse = function(response, dataObject, error) {
 	else {
 		o.data = dataObject;
 		response.json(o);
-		// l.d('AppUtil.sendResponse() - sent');
-		// l.d(JSON.stringify(o,null,4));
+		// l.v('AppUtil.sendResponse() - sent');
+		// l.v(JSON.stringify(o,null,4));
 	}
 };

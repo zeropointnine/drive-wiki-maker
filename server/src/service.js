@@ -169,7 +169,7 @@ postMethods.startAuth = function (request, response) {
 
 	var o = makeStateObject();
 	o.consentUrl = gapiUtil.consentUrl( config.driveScopeUrl() );
-	l.d('startAuth - consentUrl:', o.consentUrl);
+	l.v('startAuth - consentUrl:', o.consentUrl);
 	appUtil.sendResponse(response, o);
 };
 
@@ -187,7 +187,7 @@ postMethods.setCode = function (request, response) {
 		prefs.save();
 
 		appUtil.sendResponse(response, makeStateObject());
-	}
+	};
 
 	gapiUtil.authorizeWithCallbackCode(request.body.value, onResult);
 };
@@ -199,10 +199,13 @@ postMethods.deauth = function (request, response) {
 	var cb = function (errorDesc) {
 
 		if (errorDesc) return appUtil.sendResponse(response, null, errorDesc);
-		l.d('deauth success');
+		l.v('deauth success');
 
 		prefs.setRefreshToken(null);
+		prefs.setDriveBaseFolderId(null);
+		prefs.setDriveDefaultDocumentId(null);
 		prefs.save();
+
 		gapiUtil.clearOauthClient();
 		exportTimer.stop();
 
@@ -310,16 +313,15 @@ postMethods.setRefreshIntervalCode = function (request, response) {
 
 postMethods.exportWiki = function (request, response) {
 
-	// TODO
 	if (status.isGenerating) {
-		l.i('did this')
 		return appUtil.sendResponse(response, null, 'Service is already generating files');
 	}
 
-	exporter.exportWiki();
-
-	// Immediately send a response and start the process; client will start polling for status
+	// Immediately send a response; client will start polling for status
 	appUtil.sendResponse(response, makeStateObject());
+
+	// Start exporting
+	exporter.exportWiki();
 };
 
 /**
