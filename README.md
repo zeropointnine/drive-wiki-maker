@@ -19,7 +19,7 @@ You can see it in action here:  [http://wiki.zeropointnine.com](http://wiki.zero
 
 
 Running the app on localhost for the first time
-===============================================
+-----------------------------------------------
 
 Make sure node.js and npm are installed.
 

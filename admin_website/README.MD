@@ -1,39 +1,16 @@
-#Wiki Maker Admin Client (webpage)
+Drive Wikimaker - Admin website subproject
+==========================================
 
-This is the front-end client for the Wiki Maker backend. It can be
-used to configure its settings.
+This is the front-end admin interface for the Wikimaker server. It is a static, single-page site.
 
-The backend service can also be configured thru just editing its
-config file, but this front-end admin client was created partly for learning purposes.
-
-It is a purely static site. By default, the Node backend service
-is set up to serve its files to the browser.
+It uses AMD modules using require.js. The CSS is generated using SCSS/Compass.
 
 
-##Project setup
+### Todo's
 
-Single-page site (just one html page)
-Uses AMD modules with require.js
-Uses SASS/Compass to generate the CSS.
-
-Is set up for IDEA, but: compass 'plugin' is NOT enabled,
-because it locks up the application bad.
-
-##Production build:
-
-Double-click "build.command" in the base project directory (OSX).
-This will create the single, minified js source file "boot-prod.js".
-Requires node as well as require.js as a global npm install.
-
-Might as well keep the un-minified js files there as-is, no harm in it
-The html file for the production version is "console-prod.html
-
-
-##Deployment:
-
-The entire '3-project' 'project' directory can be uploaded in one go,
-so no further configuration needs to be done.
-
-The site could be set up to run using any file server since it has no
-backend dependencies (aside from the Node service itself). This would
-probably require some minor pathing logic changes, related to the callback url, etc.
+- "Refresh Drive data" button
+- "Erase wiki data" functionality
+- An association should be made between the access token and the name or username of the authorized Google account 
+- Possibly use skinned modal for error feedback rather than a simple alert()
+- Bug: Changing root folder or home document should immediately update tree.json
+- Bug: when changing hosts (eg, when moving prefs from one computer to another), redirect url prompt is wrong until some kind of update is done
