@@ -14,18 +14,6 @@ define(['project/lee-util', 'project/shared', 'project/eventbus', 'jquery'], fun
 
 		// console.log('html before', html);
 
-
-		(function removeConsolasRef() {
-
-			// External import fails in iframe, and Consolas is already defined for the site
-			// TODO: consolas in iframe not working on android or ios? (or is it just any system w/o consolas already-installed?)
-
-			var s = "@import url('https://themes.googleusercontent.com/fonts/css?kit=lhDjYqiy3mZ0x6ROQEUoUw');"
-			html = html.replace(s, '');
-
-		})();
-
-
 		(function forceDefaultBodyPadding() {
 
 			var myDefaultPadding = '36pt 36pt 36pt 36pt';
@@ -55,7 +43,6 @@ define(['project/lee-util', 'project/shared', 'project/eventbus', 'jquery'], fun
 					}
 				}
 			}
-
 		})();
 
 
@@ -66,7 +53,7 @@ define(['project/lee-util', 'project/shared', 'project/eventbus', 'jquery'], fun
 			// 		http or https://www.google.com/url?q=some_url_encoded_value",
 			//
 			// where the q param value ends with &amp;sa=...&amp;sn=...&amp;tz=...
-			// also, which is f-ed up, the '&ampsa=;' can sometimes show up as just '&sa='
+			// also, the '&ampsa=;' can sometimes show up as just '&sa='
 
 			var re = /href=\"(?:http|https):\/\/www\.google\.com\/url\?q=(.*?)(?:\&amp\;|\&)sa=.*?\"/g;
 
@@ -82,15 +69,12 @@ define(['project/lee-util', 'project/shared', 'project/eventbus', 'jquery'], fun
 				// 'invalidate' the search b/c string has changed
 				re.lastIndex = 0;
 			}
-
 		})();
 
-
-		// console.log('html after', html);
+		console.log('html after', html);
 
 		return html;
 	};
-
 
 	return f;
 });
