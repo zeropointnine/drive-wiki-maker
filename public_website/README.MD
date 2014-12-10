@@ -22,7 +22,7 @@ To recompile:
 
 1. Install requirejs globally first if not already installed: `npm install -g requirejs`
 2. `r.js -o build.js`
-	
+
 
 Todo's
 ------

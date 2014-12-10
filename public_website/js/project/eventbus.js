@@ -10,6 +10,6 @@
  */
 
 define([], function() {
-	var f = function() {}
+	var f = function() {};
 	return f;
 });

@@ -1,0 +1,11 @@
+@font-face {
+  font-family: 'Consolas';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Consolas'), url(https://fonts.gstatic.com/l/font?kit=69UxN7BoSYwlYrMe0YYXp-vvDin1pK8aKteLpeZ5c0A) format('woff2');
+}
+
+/* 
+	taken from https://themes.googleusercontent.com/fonts/css?kit=lhDjYqiy3mZ0x6ROQEUoUw
+	applies to chrome; firefox; safari should actually be 'woff2' maybe
+*/

@@ -1,36 +1,15 @@
-/* Welcome to Compass.
- * In this file you should write your main styles. (or centralize your imports)
- * Import this file using the following HTML or equivalent:
- * <link href="/stylesheets/screen.css" media="screen, projection" rel="stylesheet" type="text/css" /> */
+/*
+	Requires Compass (though hardly uses it)
+*/
 
 @import "compass/reset";
-
 
 $siteMonospace: 'Consolas', monospace;
 $navAreaWidth: 250px;
 $navFileItemHeight: 25px;
 $navFolderItemHeight: 25px;
 
-
-@font-face {
-	font-family: 'Consolas';
-	font-weight: normal;
-	src: url('../fonts/consola-webfont.eot'); /* IE 5-8 */ 
-	src: local('☺'), /* trick IE */
-		url('../fonts/consola-webfont.woff') format('woff'), /* FF 3.6, Chrome 5, IE9 */
-		url('../fonts/consola-webfont.ttf') format('truetype'), /* Opera, Safari */
-		url('../fonts/consola-webfont.svg#font') format('svg'); /* iOS */
-}
-
-@font-face {
-	font-family: 'Consolas';
-	font-weight: bold;
-	src: url('../fonts/consolab-webfont.eot');
-	src: local('☺'),
-		url('../fonts/consolab-webfont.woff') format('woff'),
-		url('../fonts/consolab-webfont.ttf') format('truetype'),
-		url('../fonts/consolab-webfont.svg#font') format('svg');
-}
+@import "consolas-local.css";
 
 body {
 	width: 100%;

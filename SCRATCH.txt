@@ -1,0 +1,19 @@
+ADMIN SITE
+
+* is dev not prod?!
+
+* needs to show account name it pulls from !
+
+* "select root folder" needs to concatenate path, ideally
+
+* export now, "Finished. No document files changed since last export." even when the directory has changed... ie, should say some more than that...
+
+
+FRONTEND
+
+item text get truncated when too long
+
+implement states on expandall/contract all
+
+implement hardcoded background and margins somewhere...
+

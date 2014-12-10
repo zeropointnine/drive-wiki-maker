@@ -1,0 +1,19 @@
+@font-face {
+	font-family: 'Consolas';
+	font-weight: normal;
+	src: url('../fonts/consola-webfont.eot'); /* IE 5-8 */
+	src: local('☺'), /* trick IE */
+	url('../fonts/consola-webfont.woff') format('woff'), /* FF 3.6, Chrome 5, IE9 */
+	url('../fonts/consola-webfont.ttf') format('truetype'), /* Opera, Safari */
+	url('../fonts/consola-webfont.svg#font') format('svg'); /* iOS */
+}
+
+@font-face {
+	font-family: 'Consolas';
+	font-weight: bold;
+	src: url('../fonts/consolab-webfont.eot');
+	src: local('☺'),
+	url('../fonts/consolab-webfont.woff') format('woff'),
+	url('../fonts/consolab-webfont.ttf') format('truetype'),
+	url('../fonts/consolab-webfont.svg#font') format('svg');
+}
