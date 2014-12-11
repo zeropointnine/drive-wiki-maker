@@ -1,19 +1,24 @@
-ADMIN SITE
+# BACKEND
 
-* is dev not prod?!
+when no file contents change, is _not_ updating tree.json, but should
+(test: delete file, regenerate, notice that deleted file is still in side nav, and also still in recents list...)
 
-* needs to show account name it pulls from !
+# ADMIN SITE
 
-* "select root folder" needs to concatenate path, ideally
+mine is set to dev not prod?!
 
-* export now, "Finished. No document files changed since last export." even when the directory has changed... ie, should say some more than that...
+"select root folder" needs to concatenate path, ideally
+
+service 'state object' should _not_ transmit client secret (!)
+
+"Finished. No document files changed since last export" messaging is not quite enough. Need logic for whether directory structure changed or not, probably.
 
 
-FRONTEND
+# FRONTEND
 
 item text get truncated when too long
 
 implement states on expandall/contract all
 
-implement hardcoded background and margins somewhere...
 
+add example screenshots

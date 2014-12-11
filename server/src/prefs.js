@@ -21,6 +21,7 @@ var _obj; 		// is either the 'dev' hash or 'prod' hash
 
 exports.init = function () {
 
+	// load prefs file
 	var s;
 	try {
 		s = fs.readFileSync(config.prefsPath(), {encoding:'utf8'});
@@ -76,7 +77,7 @@ exports.init = function () {
 var save = exports.save = function() {
 
 	var s = JSON.stringify(_topObj, null, 4);
-	//l.v('Prefs.save()\r\n' + s);
+	// l.v('Prefs.save()\r\n' + s);
 
 	fs.writeFile(config.prefsPath(), s, 'utf8', function(error) {
 		if (error) {
@@ -87,7 +88,7 @@ var save = exports.save = function() {
 
 exports.objectForService = function() {
 
-	// just copy most of the properties over
+	// just copy the properties over
 	var o = {};
 	for (var key in _obj) {
 		if (key == 'refreshToken') continue;  // but not this one, of course
@@ -120,6 +121,13 @@ exports.googleApiRedirectUrl = function() {
 };
 exports.setGoogleApiRedirectUrl = function(s) {
 	_obj.googleApiRedirectUrl = s;
+};
+
+exports.userDisplayName = function() {
+	return _obj.userDisplayName;
+};
+exports.setUserDisplayName = function(s) {
+	_obj.userDisplayName = s;
 };
 
 exports.refreshToken = function () {
@@ -173,12 +181,13 @@ var makeDefaults = function () {
 		o.googleApiClientId = null;
 		o.googleApiClientSecret = null;
 		o.googleApiRedirectUrl = null;
+		o.userDisplayName = null;
+		o.refreshToken  = null;
 		o.driveBaseFolderId = null;
 		o.driveDefaultDocumentId = null;
 		o.wikiTitle = null;
 		o.refreshIntervalCode = -1;
 		o.mimeTypesToExport = ['text/html'];
-		o.refreshToken  = null;
 		return o;
 	};
 
@@ -196,11 +205,12 @@ var printValues = function () {
 	l.i("googleApiClientId        :", _obj.googleApiClientId);
 	l.i("googleApiClientSecret    :", _obj.googleApiClientSecret);
 	l.i("googleApiRedirectUrl     :", _obj.googleApiRedirectUrl);
+	l.i("userDisplayName          :", _obj.userDisplayName);
+	l.i("refreshToken             :", _obj.refreshToken ? JSON.stringify(_obj.refreshToken).substr(0,8) + '...' : _obj.refreshToken);
 	l.i("driveBaseFolderId        :", _obj.driveBaseFolderId);
 	l.i("driveDefaultDocumentId   :", _obj.driveDefaultDocumentId);
 	l.i("wikiTitle                :", _obj.wikiTitle);
 	l.i("refreshIntervalCode      :", _obj.refreshIntervalCode);
 	l.i("mimeTypesToExport        :", _obj.mimeTypesToExport ? JSON.stringify(_obj.mimeTypesToExport) : _obj.mimeTypesToExport);
-	l.i("refreshToken             :", _obj.refreshToken ? JSON.stringify(_obj.refreshToken).substr(0,8) + '...' : _obj.refreshToken);
 	l.i("");
 };

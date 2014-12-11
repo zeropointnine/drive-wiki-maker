@@ -10,4 +10,6 @@ require.config({
 	}
 });
 
-require( ['project/main'], function (AppMain) { new AppMain().init(); } );
+require( ['project/main'], function (Main) {
+	window.main = new Main();
+} );

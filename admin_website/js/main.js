@@ -3,7 +3,7 @@
 define(['app-util', 'lee-util', 'eventbus', 'components/export-modal', 'jquery'],
 		function(AppUtil, LeeUtil, EventBus, ExportModal, $) {
 
-	var f = function() {
+	var Main = function() {
 
 		var SERVICE_URL = 'service';
 
@@ -418,9 +418,15 @@ define(['app-util', 'lee-util', 'eventbus', 'components/export-modal', 'jquery']
 			}
 
 			// auth status
-			var s = prefs.hasRefreshToken ?
-				'<span class="auth-status-is">Currently authorized</span>' :
-				'<em class="auth-status-isnt">Authorize Google Drive account to continue</em>';
+			var s;
+			if (! prefs.hasRefreshToken) {
+				s = '<em class="auth-status-isnt">Authorize Google Drive account to continue</em>';
+			}
+			else {
+				s = '<span class="auth-status-is">Currently authorized';
+				if (prefs.userDisplayName) s += ' as ' + prefs.userDisplayName;
+				s += '</span>';
+			}
 			$('#auth-status').html(s);
 
 			$('#deauthorize-button').attr('disabled', ! prefs.hasRefreshToken);
@@ -569,5 +575,5 @@ define(['app-util', 'lee-util', 'eventbus', 'components/export-modal', 'jquery']
 		};
 	};
 
-	return f;
+	return Main;
 });

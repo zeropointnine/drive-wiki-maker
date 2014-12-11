@@ -4,7 +4,7 @@
 
 define([], function () {
 
-	var f = function() {
+	var LeeUtil = function() {
 		// no 'instance methods'
 	};
 
@@ -12,7 +12,7 @@ define([], function () {
 	// 'static methods':
 
 	// http://stackoverflow.com/questions/901115/how-can-i-get-query-string-values-in-javascript
-	f.getUrlParam = function (name) {
+	LeeUtil.getUrlParam = function (name) {
 	    name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
 	    var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
 	        results = regex.exec(location.search);
@@ -21,37 +21,37 @@ define([], function () {
 
 
 	// Set this to false to disable throwing errors on-assert-failed
-	f.assertEnabled = true;
+	LeeUtil.assertEnabled = true;
 
-	f.assert = function(condition, message) {
+	LeeUtil.assert = function(condition, message) {
 	    if (! this.assertEnabled) return;
 	    if (! condition) {
 			throw new Error(message || "Assertion failed");
 	    }
-	}
+	};
 
-	f.utcToLocalTime = function(utcTime) {
+	LeeUtil.utcToLocalTime = function(utcTime) {
 
 		var offsetMinutes = new Date().getTimezoneOffset();
 		var offsetMs =  offsetMinutes * 1000 * 60;
 
 		var date = new Date(utcTime - offsetMs);
 		return date.getTime();
-	}
+	};
 
 	// polyfill
 	//
-	f.windowScrollY = function (win) {
+	LeeUtil.windowScrollY = function (win) {
 
 		return (win.pageYOffset !== undefined) ? 
 			win.pageYOffset 
 			: 
 			(win.document.documentElement || win.document.body.parentNode || win.document.body).scrollTop;
-	}
+	};
 
 	// http://stackoverflow.com/a/1460174
 	//
-	f.createCookie = function (name, value, days) {
+	LeeUtil.createCookie = function (name, value, days) {
 		var expires;
 
 		if (days) {
@@ -64,7 +64,7 @@ define([], function () {
 		document.cookie = escape(name) + "=" + escape(value) + expires + "; path=/";
 	};
 
-	f.readCookie = function (name) {
+	LeeUtil.readCookie = function (name) {
 		var nameEQ = escape(name) + "=";
 		var ca = document.cookie.split(';');
 		for (var i = 0; i < ca.length; i++) {
@@ -75,11 +75,11 @@ define([], function () {
 		return null;
 	};
 
-	f.eraseCookie = function (name) {
-		f.createCookie(name, "", -1);
-	}
+	LeeUtil.eraseCookie = function (name) {
+		LeeUtil.createCookie(name, "", -1);
+	};
 
 	// ---
 
-	return f;
+	return LeeUtil;
 });

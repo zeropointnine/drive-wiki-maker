@@ -1,12 +1,12 @@
 /**
- *
+ * Global
  */
 
 define([], function () {
 
-	var f = function() {};
+	var Shared = function() {};
 
-	f.getThing = function() { return 'thing'; };
+	Shared.getThing = function() { return 'thing'; };
 
-	return f;
+	return Shared;
 });

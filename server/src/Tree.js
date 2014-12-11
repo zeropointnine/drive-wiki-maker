@@ -10,16 +10,20 @@
  * object of the folder's properties. Any subsequent elements are its children, which
  * will be either an object representing a document file, or an array representing a folder.
  *
- * TODO: Test for Drive items with multiple parents. Make sure doesn't infinite loop.
+ * Saves its structured data as static json, to be consumed by front-end.
+ *
+ * TODO: Account for items with multiple parents. Make sure doesn't infinite loop.
  */
 
 var fs = require('fs');
 var util = require('util');
+var l = require('./logger');
 var leeUtil = require('./util/lee-util');
 var driveUtil = require('./util/gapi-util');
-var l = require('./logger');
 var config = require('./config');
+var changes = require('./changes');
 var treeUtil = require('./tree-util');
+
 
 var Tree = function () {
 
@@ -31,6 +35,7 @@ var Tree = function () {
 
 	var defaultDocumentId; 	// 'metadata'
 	var title;
+
 
 	/**
 	 * For use by Tree.make() only
@@ -106,13 +111,14 @@ var Tree = function () {
 	/**
 	 * Synchronous. Returns error if any.
 	 *
-	 * Note how we only set certain metadata properties at this point...
+	 * Note how we only set certain metadata properties at this point
 	 */
-	this.saveToFile = function (path, pDefaultDocumentId, pTitle) {
+	this.saveJson = function (path, pDefaultDocumentId, pTitle) {
 
 		// validate defaultDocumentId:
 		var b = pDefaultDocumentId && this.hasFileItemWithId(pDefaultDocumentId);
 		defaultDocumentId = b ? pDefaultDocumentId : null;
+
 		title = pTitle;
 		utcTime = leeUtil.utcDateNow().getTime();
 
@@ -123,12 +129,13 @@ var Tree = function () {
 		o.defaultDocumentId = defaultDocumentId;
 		o.title = title;
 		o.utcTime = utcTime;
-		var s = config.isProd() ? JSON.stringify(o) : JSON.stringify(o,null,4);
+		o.recentChanges = changes.changes();  // ha
 
 		// save
+		var s = config.isProd() ? JSON.stringify(o) : JSON.stringify(o,null,4);
 		try {
 			fs.writeFileSync(path, s );
-			l.v("Tree.saveToFile() - ok");
+			l.v("Tree.saveJson() - ok");
 		}
 		catch (error) {
 			return error;
@@ -226,8 +233,7 @@ var Tree = function () {
 
 		fileList = [];
 		makeFileListFromArray(items);
-	}
-
+	};
 
 	var makeSimpleFileList = function () {
 
@@ -240,7 +246,7 @@ var Tree = function () {
 			var o = { id: item.id, title: title };
 			simpleFileList.push(o);
 		}
-	}
+	};
 
 	var removeEmptyFoldersFrom = function (a)
 	{

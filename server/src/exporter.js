@@ -44,7 +44,7 @@ var onDriveData = function (error) {
 	oldTree = Tree.makeFromLoadedJson(config.publicWebsiteTreePath());
 
 	// now save out the new tree
-	var err = shared.tree().saveToFile( config.publicWebsiteTreePath(), prefs.driveDefaultDocumentId(), prefs.wikiTitle() );
+	var err = shared.tree().saveJson( config.publicWebsiteTreePath(), prefs.driveDefaultDocumentId(), prefs.wikiTitle() );
 	if (err) {
 		return finish(error.message);
 	}

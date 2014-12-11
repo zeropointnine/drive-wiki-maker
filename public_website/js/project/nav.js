@@ -8,7 +8,7 @@
 define(['project/nav-tree', 'project/lee-util', 'project/shared', 'project/eventbus', 'jquery'],
 		function(NavTree, Util, Shared, EventBus, $) {
 
-	var f = function($holder) 
+	var Nav = function($holder)
 	{
 		Util.assert($holder, "Needs holder");
 
@@ -84,28 +84,28 @@ define(['project/nav-tree', 'project/lee-util', 'project/shared', 'project/event
 			$collapseButton.click(function() { 
 				collapseTree();
 			});
-		}
+		};
 
 		this.disable = function() {
 
 			$minimizeButton.off('click');
 			$expandButton.off('');
 			$collapseButton.off('');
-		}
+		};
 
 		this.selectItem = function(id) {
 			tree.selectItem(id);
-		}
+		};
 
 		var expandTree = function () {
 			tree.expandAll();
 			size();
-		}
+		};
 
 		var collapseTree = function () {
 			tree.collapseToRoot();
 			size();
-		}
+		};
 
 		var selectItem = this.selectItem = function (modelItem) {
 			
@@ -117,10 +117,10 @@ define(['project/nav-tree', 'project/lee-util', 'project/shared', 'project/event
 			else {
 				tree.selectItem(null);
 			}
-		}
+		};
 
 		// ---
 	}
 
-	return f;
+	return Nav;
 });

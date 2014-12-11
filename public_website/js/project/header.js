@@ -2,7 +2,7 @@ define(['project/lee-util', 'project/shared', 'project/eventbus', 'jquery'],
 		function(Util, Shared, EventBus, $) {
 
 
-	var f = function($holder, $spacer) 
+	var Header = function($holder, $spacer)
 	{
 		Util.assert($holder && $holder.length == 1 && $spacer && $spacer.length == 1, "Bad arg");
 
@@ -19,7 +19,7 @@ define(['project/lee-util', 'project/shared', 'project/eventbus', 'jquery'],
 		this.setScrapedTimeUtc = function(i) {
 			var d = new Date(i);
 			scrapedTimeString = stringFromDate(d);
-		}
+		};
 
 		this.update = function(modelItem, crumbString) {
 
@@ -48,7 +48,7 @@ define(['project/lee-util', 'project/shared', 'project/eventbus', 'jquery'],
 			}
 
 			size();
-		}
+		};
 
 		// ---
 
@@ -63,7 +63,7 @@ define(['project/lee-util', 'project/shared', 'project/eventbus', 'jquery'],
 
 			// rem, #content automatically expands to fill area under headerSpacer, 
 			// and its iframe always expands to fill #content
-		}
+		};
 
 		var stringFromIso8601String = function (stringIso8601) {
 			
@@ -91,7 +91,7 @@ define(['project/lee-util', 'project/shared', 'project/eventbus', 'jquery'],
 			iframeScrollY = y;
 			size();
 		})
-	}
+	};
 
-	return f;
+	return Header;
 });

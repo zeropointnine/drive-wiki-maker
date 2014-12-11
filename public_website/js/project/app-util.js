@@ -3,9 +3,9 @@
  */
 define(['project/lee-util', 'project/shared', 'project/eventbus', 'jquery'], function (Util, Shared, EventBus, $) {
 
-	var f = function() {};
+	var AppUtil = function() {};
 
-	f.editDocumentHtml = function(html) {
+	AppUtil.editDocumentHtml = function(html) {
 
 		// Do any customization of the google document's exported html here
 		// It should be assumed though that the way the document is structured as well as its specific content could change
@@ -82,5 +82,68 @@ define(['project/lee-util', 'project/shared', 'project/eventbus', 'jquery'], fun
 		return html;
 	};
 
-	return f;
+	AppUtil.appendRecentChangesToHtml = function(html, model) {
+
+		var agoString = function(epochMs) {
+
+			var minutesPerHour = 60;
+			var minutesPerDay = 60 * 24;
+			var minutesPerMonth = 60 * 24 * 31;  // goodenough
+
+			var minutesAgo = (Date.now() - epochMs) / 1000 / 60;
+
+			console.log('xxx', Date.now(), epochMs, (Date.now() - epochMs));
+
+
+			var val;
+			if (minutesAgo < minutesPerHour) {
+				val = Math.round(minutesAgo);
+				return val + ((val == 1) ? " minute ago" : " minutes ago");
+			}
+			else if (minutesAgo < minutesPerDay) {
+				val = Math.round(minutesAgo / minutesPerHour);
+				return val + ((val == 1) ? " hour ago" : " hours ago");
+			}
+			else if (minutesAgo < minutesPerMonth) {
+				val = Math.round(minutesAgo / minutesPerDay);
+				return val + ((val == 1) ? " day ago" : " days ago");
+			}
+			else {
+				val = Math.round(minutesAgo / minutesPerMonth);
+				return val + ((val == 1) ? " month ago" : " months ago");
+			}
+		};
+
+		if (! model || ! model.recentChanges()) return html;
+
+
+		// TODO: use stylesheet which would need to be 'injected' into teh html
+
+		var s = "<br><br>";
+		s += "<h2><em>Recent updates:</em></h2>";
+		s += "<ul>";
+
+		var a = model.recentChanges();
+		for (var i = 0; i < a.length; i++)
+		{
+			var changeItem = a[i];
+			if (! changeItem.id) continue;
+			var modelItem = model.itemById(changeItem.id);
+			var anchorText = model.makeCrumbStringOfItem(modelItem)  +  (modelItem.title || 'Untitled');
+			var anchorTag = "<a href='javascript:window.parent.main.doDocument(\"" + changeItem.id + "\");'>" + anchorText + "</a>";
+
+			s += "<p>";
+			s += anchorTag;
+			if (changeItem.epochMs) {
+				s += " (" + agoString(changeItem.epochMs) + ")";
+			}
+			s += "</p>";
+		}
+		s += "</ul><br>";
+
+		html = html.replace("</body>", s + "</body>");
+		return html;
+	};
+
+	return AppUtil;
 });

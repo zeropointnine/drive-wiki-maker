@@ -3,16 +3,20 @@
  *
  * TODO: find workaround for iOS bug: iframe won't scroll
  */
-define(['project/lee-util', 'project/app-util', 'project/shared', 'project/eventbus', 'jquery'],
-		function (Util, AppUtil, Shared, EventBus, $) {
+define(['project/lee-util', 'project/app-util', 'project/shared', 'project/eventbus', 'project/model', 'jquery'],
+		function (Util, AppUtil, Shared, EventBus, Model, $) {
 
-	var f = function($holder) {
+	var Content = function($holder, pModel) {
 
 		Util.assert($holder, "Needs holder");
+		Util.assert(pModel, "Needs model instance");
+
+		var model = pModel;
 
 		var $notFound = $('#notfound');
 		var iframe;
 		var loadDocumentCallback;
+		var shouldAppendRecentChanges;
 
 
 		// not ideal
@@ -37,12 +41,13 @@ define(['project/lee-util', 'project/app-util', 'project/shared', 'project/event
 				iframe = null;
 			}
 			$(EventBus).trigger('iframe-scroll', 0);
+		};
 
-		}
+		this.doDocument = function(url, pShouldAppendRecentChanges, callback) {
 
-		this.doDocument = function(url, callback) {
-
+			shouldAppendRecentChanges = pShouldAppendRecentChanges;
 			loadDocumentCallback = callback;
+
 			$.get(url, onDocumentLoaded).fail(onDocumentFail);
 		};
 
@@ -58,6 +63,10 @@ define(['project/lee-util', 'project/app-util', 'project/shared', 'project/event
 			$notFound.css('display', 'none');
 
 			html = AppUtil.editDocumentHtml(html);
+
+			if (shouldAppendRecentChanges) {
+				html = AppUtil.appendRecentChangesToHtml(html, model);
+			}
 
 			// TODO: try in IE<11
 			iframe = document.createElement('iframe');
@@ -100,5 +109,5 @@ define(['project/lee-util', 'project/app-util', 'project/shared', 'project/event
 		}
 	};
 
-	return f;
+	return Content;
 });

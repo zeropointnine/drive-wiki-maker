@@ -2,7 +2,7 @@
 //
 // Holds the 'about' response data, plus convenience methods.
 //
-// Not doing anything with this atm
+// Not doing hardly anything with this atm
 
 
 var data;

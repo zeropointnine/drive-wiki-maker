@@ -7,6 +7,7 @@
 var l = require('./logger');
 var exportTimer = require('./export-timer');
 var drive = require('./drive');
+var about= require('./about');
 var config = require('./config');
 
 exports.isExporting = false;

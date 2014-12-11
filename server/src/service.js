@@ -7,6 +7,7 @@ var prefs = require('./prefs');
 var exportTimer = require('./export-timer');
 var driveUtil = require('./drive-util');
 var drive = require('./drive');
+var about = require('./about');
 var Tree = require('./Tree');
 var shared = require('./shared');
 var exporter = require('./exporter');
@@ -149,11 +150,11 @@ postMethods.startAuth = function (request, response) {
 
 
 	// save gapi settings
-	var isNewClientId = (clientId != prefs.googleApiClientId());
+	var isDifferentClientId = (clientId != prefs.googleApiClientId());
 	prefs.setGoogleApiClientId(clientId);
 	prefs.setGoogleApiClientSecret(clientSecret);
 	prefs.setGoogleApiRedirectUrl(redirectUrl);
-	if (isNewClientId) {
+	if (isDifferentClientId) {
 		prefs.setDriveBaseFolderId(null);
 		prefs.setDriveDefaultDocumentId(null);
 	}
@@ -225,7 +226,7 @@ postMethods.getStatus = function (request, response) {
 	// send only the status object (client is requesting status on a quick interval)
 	var o = { status: status.objectForService() };
 	appUtil.sendResponse(response, o);
-}
+};
 
 // Gets the full files list for drive
 //
@@ -234,11 +235,12 @@ postMethods.getDriveDataAndMakeTree = function (request, response) {
 	var onResponse = function (error) {
 		if (error) {
 			if (error == 'invalid_grant') {
-				// make more user-friendly error message
+				// a more user-friendly error message
 				error = "Bad refresh token. You will need to re-authorize your Google API account.";
 			}
 			return appUtil.sendResponse(response, null, error);
 		}
+
 		appUtil.sendResponse(response, makeStateObject() );
 	};
 

@@ -4,7 +4,7 @@
 define(['project/compiled-templates', 'project/lee-util', 'project/eventbus', 'jquery'],
 		function(Handlebars, Util, EventBus, $) {
 
-	var f = function($holder) {
+	var NavTree = function($holder) {
 
 		Util.assert($holder && $holder.length == 1, "Needs holder");
 
@@ -203,5 +203,5 @@ define(['project/compiled-templates', 'project/lee-util', 'project/eventbus', 'j
 		};
 	};
 
-	return f;
+	return NavTree;
 });

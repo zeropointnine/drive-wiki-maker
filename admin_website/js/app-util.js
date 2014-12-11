@@ -29,7 +29,7 @@ define([], function () {
 		var twoDigits = function (digit) {
 			digit = digit + '';
 			return (digit.length == 1) ? '0' + digit : digit;
-		}
+		};
 
 		var s = '';
 		s += (date.getYear()+1900) + "/";
@@ -39,7 +39,7 @@ define([], function () {
 		s += twoDigits(date.getMinutes());
 
 		return s;
-	}
+	};
 
 	// ---
 

@@ -52,10 +52,12 @@
 
             var isDev = window.location.href.indexOf('localhost') > -1;
             if (isDev) {
+	            console.log("* UNMINIFIED");
                 script.setAttribute("src", "js/libs/require-v2.1.11.js");
                 script.setAttribute("data-main", "js/boot.js");
             }
             else {
+	            console.log("* MINIFIED");
                 script.setAttribute("src", "js/boot-built.js");
             }
             document.getElementsByTagName("head")[0].appendChild(script);

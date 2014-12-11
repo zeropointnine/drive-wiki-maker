@@ -2,7 +2,7 @@
 
 define(['underscore'], function(_)
 {
-	var f = function() 
+	var Model = function()
 	{
 		var GENERIC_TITLE = 'wiki';
 
@@ -14,6 +14,7 @@ define(['underscore'], function(_)
 		var _defaultDocumentId;
 		var _exportedMimeTypes;
 		var _utcTime;
+		var _recentChanges;
 
 		// Hash where key is id and value is the file item object.
 		// Derived from _items. Used for file item lookups.
@@ -40,15 +41,16 @@ define(['underscore'], function(_)
 				_defaultDocumentId = o.defaultDocumentId;
 				_exportedMimeTypes = o.exportedMimeTypes;
 				_utcTime = o.utcTime;
+				_recentChanges = o.recentChanges;
 
-				console.log('model data loaded:', _items);
+				console.log('model data loaded');
 
 		    	callback();
 		    })
 			.fail(function() {
 				callback(new Error("Load error - file"));
 			});
-		}
+		};
 
 		this.items = function () { 
 			return _items; 
@@ -68,11 +70,15 @@ define(['underscore'], function(_)
 
 		this.utcTime = function () {
 			return _utcTime;
-		}
+		};
+
+		this.recentChanges = function () {
+			return _recentChanges;
+		};
 
 		this.itemById = function(id) {
 			return _flatMap[id];
-		}
+		};
 
 		// Returns an array of arrays, of each enclosing 'folder' of item-with-id,
 		// starting from the outermost folder to the one actually containing the item.
@@ -178,7 +184,7 @@ define(['underscore'], function(_)
 	// ...
 
 
-	return f;
+	return Model;
 });
 
 

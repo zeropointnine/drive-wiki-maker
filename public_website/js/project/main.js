@@ -3,27 +3,32 @@ define(['project/model', 'project/nav', 'project/header', 'project/content',
 		function(Model, NavView, Header, ContentView, LeeUtil, Shared, EventBus, $) {
 
 
-	var f = function() {
+	var Main = function() {
 
 		var CONTENT_DIRECTORY = 'exported_documents';
 		var MODEL_URL = CONTENT_DIRECTORY + '/' + 'tree.json';
 
-		var model = new Model();
-		var navView = new NavView( $('#navArea') );
-		var header = new Header( $('#header'), $('#headerSpacer') );
-		var contentView = new ContentView( $('#contentArea') );
+		var model;
+		var navView;
+		var header;
+		var contentView;
 
 
-		this.init = function () {
+		var init = function () {
 
-			var isDev = (window.location.href.indexOf('localhost') == -1);
-			if  (isDev) {
+			var isDev = (window.location.href.indexOf('localhost') > -1);
+			if (isDev) {
 				LeeUtil.assertEnabled = true;
 			}
 			else {
 				LeeUtil.assertEnabled = false;
-				console.log = function() {};
+				// console.log = function() {};  // !
 			}
+
+			model = new Model();
+			navView = new NavView( $('#navArea') );
+			header = new Header( $('#header'), $('#headerSpacer') );
+			contentView = new ContentView( $('#contentArea'), model );
 
 			$(window).resize(size);
 			size();
@@ -62,21 +67,25 @@ define(['project/model', 'project/nav', 'project/header', 'project/content',
 			header.setScrapedTimeUtc(model.utcTime());
 
 			// launch document:
+
 			var id = LeeUtil.getUrlParam('id');
 			if (id) {
 				doDocument(id, true);
 			}
 			else {
 				if (model.defaultDocumentId()) {
-					doDocument(model.defaultDocumentId());
+					doDocument(model.defaultDocumentId(), false);
 				}
 				else {
-					doNoDocument();
+					doNoDocument();  // TODO: support 'appendRecentChanges' in this case too
 				}
 			}
 		};
 
-		var doDocument = function (id, dontAddHistory) {
+		/**
+		 * Can get called from iframe from 'injected' content (recent updates...)
+		 */
+		var doDocument = this.doDocument = function (id, dontAddHistory) {
 
 			var item = model.itemById(id);
 			if (! item) {
@@ -85,11 +94,11 @@ define(['project/model', 'project/nav', 'project/header', 'project/content',
 				return;
 			}
 
-			console.log('doDocument:', id, 'noHist:', dontAddHistory, 'item:', item);
+			// TODO: need 'isAppendEnabled' setting
+			var shouldAppend = id && model.defaultDocumentId() && id == model.defaultDocumentId();
+			console.log('doDocument()', '\nid:', id, '\nnoHist:', dontAddHistory, '\nshouldappend:', shouldAppend, '\nitem:', item);
 
-			if (! dontAddHistory) {
-				addToHistory(item.id);
-			}
+			if (! dontAddHistory)  addToHistory(item.id);
 
 			selectItem(item);
 
@@ -97,7 +106,7 @@ define(['project/model', 'project/nav', 'project/header', 'project/content',
 			
 			// var url = model.currentFileObject().exportLinks['text/html'];
 			var url = CONTENT_DIRECTORY + '/' + item.id + '.html';
-			contentView.doDocument(url, onDocumentResult);
+			contentView.doDocument(url, shouldAppend, onDocumentResult);
 		};
 
 		var onDocumentResult = function (error) {
@@ -173,9 +182,12 @@ define(['project/model', 'project/nav', 'project/header', 'project/content',
 				return;
 			}
 			console.log('onPopState: ', e.state.id);
-			doDocument(e.state.id, true);
+			// TODO shouldappend logic here
+			doDocument(e.state.id, true, e.state.id == model.defaultDocumentId());
 		};
+
+		init();
 	};
 
-	return f;
+	return Main;
 });
